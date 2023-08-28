@@ -7,14 +7,13 @@ project(Lib)
 set(SOURCE
         ${CMAKE_CURRENT_LIST_DIR}/Source/dsp_module.cpp
         ${CMAKE_CURRENT_LIST_DIR}/Source/Mapper.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/Source/shaping_impulse.cpp
         )
 
-find_package(PkgConfig REQUIRED)
-
-pkg_search_module(FFTW REQUIRED fftw3 IMPORTED_TARGET)
-
-include_directories(PkgConfig::FFTW)
-
-link_libraries (PkgConfig::FFTW)
-
 add_library(Lib STATIC ${SOURCE})
+
+find_package(FFTW3 REQUIRED)
+
+target_include_directories(Lib PUBLIC ${FFTW3_INCLUDE_DIRS})
+
+target_link_libraries(Lib ${FFTW3_LIBRARIES})

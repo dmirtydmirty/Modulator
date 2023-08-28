@@ -53,10 +53,10 @@ dsp_result dsp::ifft(std::complex<float> *input, size_t size) {
     return result;
 }
 
-dsp_result dsp::upsammple(std::complex<float> *input, size_t size, int n) {
-    dsp_result result = {new std::complex<float>[size*n], size*n};
+dsp_result dsp::upsammple(std::complex<float> *input, size_t size, uint8_t sps, uint8_t span) {
+    dsp_result result = {new std::complex<float>[size*sps + (span-1)*sps], size*sps+(span-1)*sps};
 
-    for (int i = 0; i < size; ++i) result.head[n * i] = input[i];
+    for (int i = 0; i < size; ++i) result.head[sps * i] = input[i];
     return result;
 }
 
